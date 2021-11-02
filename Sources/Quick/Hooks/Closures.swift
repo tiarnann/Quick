@@ -1,9 +1,14 @@
 // MARK: Example Hooks
 
 /**
+    A closure executed once before all examples are run.
+*/
+public typealias BeforeClosure = () -> Void
+
+/**
     A closure executed before an example is run.
 */
-public typealias BeforeExampleClosure = () -> Void
+public typealias BeforeExampleClosure = BeforeClosure
 
 /**
     A closure executed before an example is run. The closure is given example metadata,

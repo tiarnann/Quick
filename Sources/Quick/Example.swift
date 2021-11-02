@@ -69,7 +69,7 @@ final public class Example: _ExampleBase {
             world.suiteHooks.executeBefores()
         }
 
-        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun)
+        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun, indexInGroup: group!.examples.firstIndex(of: self)!)
         world.currentExampleMetadata = exampleMetadata
         defer {
             world.currentExampleMetadata = nil

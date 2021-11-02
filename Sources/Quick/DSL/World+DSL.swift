@@ -52,6 +52,27 @@ extension World {
         }
         currentExampleGroup.hooks.appendBefore(closure)
     }
+    
+    internal func before(_ closure: @escaping BeforeClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'before' cannot be used inside '\(currentPhase)', 'before' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendBefore({ example in
+            guard example.indexInGroup == 0  else { return }
+            closure()
+        })
+    }
+
+#if canImport(Darwin)
+    @objc(beforeWithMetadata:)
+    internal func before(closure: @escaping BeforeClosure) {
+        currentExampleGroup.hooks.appendBefore(closure)
+    }
+#else
+    internal func before(closure: @escaping BeforeClosure) {
+        currentExampleGroup.hooks.appendBefore(closure)
+    }
+#endif
 
 #if canImport(Darwin)
     @objc(beforeEachWithMetadata:)

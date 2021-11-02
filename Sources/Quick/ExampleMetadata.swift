@@ -25,9 +25,15 @@ final public class ExampleMetadata: _ExampleMetadataBase {
         test suite.
     */
     public let exampleIndex: Int
+    
+    /**
+        The index of the example in it's group.
+    */
+    public let indexInGroup: Int
 
-    internal init(example: Example, exampleIndex: Int) {
+    internal init(example: Example, exampleIndex: Int, indexInGroup: Int) {
         self.example = example
         self.exampleIndex = exampleIndex
+        self.indexInGroup = indexInGroup
     }
 }
