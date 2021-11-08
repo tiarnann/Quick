@@ -29,11 +29,13 @@ final public class ExampleMetadata: _ExampleMetadataBase {
     /**
         The index of the example in it's group.
     */
-    public let indexInGroup: Int
+    public let isFirstExampleInGroup: Bool
+    public let isLastExampleInGroup: Bool
 
-    internal init(example: Example, exampleIndex: Int, indexInGroup: Int) {
+    internal init(example: Example, exampleIndex: Int, isFirstExampleInGroup: Bool, isLastExampleInGroup: Bool) {
         self.example = example
         self.exampleIndex = exampleIndex
-        self.indexInGroup = indexInGroup
+        self.isFirstExampleInGroup = isFirstExampleInGroup
+        self.isLastExampleInGroup = isLastExampleInGroup
     }
 }

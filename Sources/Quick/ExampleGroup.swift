@@ -10,6 +10,7 @@ final public class ExampleGroup: NSObject {
     internal let hooks = ExampleHooks()
 
     internal var phase: HooksPhase = .nothingExecuted
+    internal var numberOfExamplesRun: Int = 0
 
     private let internalDescription: String
     private let flags: FilterFlags

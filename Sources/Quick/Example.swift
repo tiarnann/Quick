@@ -29,7 +29,6 @@ final public class Example: _ExampleBase {
     public var callsite: Callsite
 
     weak internal var group: ExampleGroup?
-
     private let internalDescription: String
     private let closure: () throws -> Void
     private let flags: FilterFlags
@@ -69,7 +68,7 @@ final public class Example: _ExampleBase {
             world.suiteHooks.executeBefores()
         }
 
-        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun, indexInGroup: group!.examples.firstIndex(of: self)!)
+        let exampleMetadata = ExampleMetadata(example: self, exampleIndex: world.numberOfExamplesRun, isFirstExampleInGroup: group!.numberOfExamplesRun == 0, isLastExampleInGroup: group!.numberOfExamplesRun == (group!.examples.count - 1))
         world.currentExampleMetadata = exampleMetadata
         defer {
             world.currentExampleMetadata = nil
@@ -118,7 +117,7 @@ final public class Example: _ExampleBase {
         }
         group!.phase = .aftersFinished
         world.exampleHooks.executeAfters(exampleMetadata)
-
+        group!.numberOfExamplesRun += 1
         world.numberOfExamplesRun += 1
 
         if !world.isRunningAdditionalSuites && world.numberOfExamplesRun >= world.cachedIncludedExampleCount {

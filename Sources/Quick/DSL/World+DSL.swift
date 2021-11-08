@@ -58,7 +58,17 @@ extension World {
             raiseError("'before' cannot be used inside '\(currentPhase)', 'before' may only be used inside 'context' or 'describe'.")
         }
         currentExampleGroup.hooks.appendBefore({ example in
-            guard example.indexInGroup == 0  else { return }
+            guard example.isFirstExampleInGroup else { return }
+            closure()
+        })
+    }
+    
+    internal func after(_ closure: @escaping AfterClosure) {
+        guard currentExampleMetadata == nil else {
+            raiseError("'after' cannot be used inside '\(currentPhase)', 'after' may only be used inside 'context' or 'describe'.")
+        }
+        currentExampleGroup.hooks.appendAfter({ example in
+            guard example.isLastExampleInGroup else { return }
             closure()
         })
     }

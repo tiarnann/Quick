@@ -77,6 +77,14 @@ public func context(_ description: String, closure: () -> Void) {
     World.sharedWorld.context(description, closure: closure)
 }
 
+public func before(_ closure: @escaping BeforeClosure) {
+    World.sharedWorld.before(closure)
+}
+
+public func after(_ closure: @escaping AfterClosure) {
+    World.sharedWorld.after(closure)
+}
+
 /**
     Defines a closure to be run prior to each example in the current example
     group. This closure is not run for pending or otherwise disabled examples.

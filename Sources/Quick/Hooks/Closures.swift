@@ -38,3 +38,5 @@ public typealias BeforeSuiteClosure = () -> Void
     A closure executed after all examples have finished running.
 */
 public typealias AfterSuiteClosure = BeforeSuiteClosure
+
+public typealias AfterClosure = () -> Void
