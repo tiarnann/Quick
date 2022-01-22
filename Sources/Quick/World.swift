@@ -68,6 +68,7 @@ final internal class World: _WorldBase {
     private let configuration = Configuration()
 
     internal private(set) var isConfigurationFinalized = false
+    internal var isManualConfigurationEnabled = false
 
     internal var exampleHooks: ExampleHooks {return configuration.exampleHooks }
     internal var suiteHooks: SuiteHooks { return configuration.suiteHooks }

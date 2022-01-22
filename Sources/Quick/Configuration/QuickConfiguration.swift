@@ -10,9 +10,7 @@ open class QuickConfiguration: NSObject {
 #endif
 
 extension QuickConfiguration {
-    #if !canImport(Darwin)
     private static var configurationSubclasses: [QuickConfiguration.Type] = []
-    #endif
 
     /// Finds all direct subclasses of QuickConfiguration and passes them to the block provided.
     /// The classes are iterated over in the order that objc_getClassList returns them.
@@ -63,14 +61,29 @@ extension QuickConfiguration {
         _configureSubclassesIfNeeded(world: world)
     }
     #endif
+    
+    public static func manuallyConfigureSubclasses(_ classes: [QuickConfiguration.Type]) {
+        let world = World.sharedWorld
+
+        if world.isConfigurationFinalized { return }
+
+        world.isManualConfigurationEnabled = true
+        configurationSubclasses = classes
+    }
 
     private static func _configureSubclassesIfNeeded(world: World) {
         if world.isConfigurationFinalized { return }
 
         // Perform all configurations (ensures that shared examples have been discovered)
         world.configure { configuration in
-            enumerateSubclasses { configurationClass in
-                configurationClass.configure(configuration)
+            let configureSubclass = { (configClass: QuickConfiguration.Type) in
+                configClass.configure(configuration)
+            }
+            
+            if world.isManualConfigurationEnabled {
+                configurationSubclasses.forEach(configureSubclass)
+            } else {
+                enumerateSubclasses(configureSubclass)
             }
         }
         world.finalizeConfiguration()
