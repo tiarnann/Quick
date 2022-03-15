@@ -18,10 +18,10 @@ import XCTest
     // If an exception occurs when compiling examples, report it to the user. Chances are they
     // included an expectation outside of a "it", "describe", or "context" block.
     func testBundleWillStart(_ testBundle: Bundle) {
-        QuickSpec.enumerateSubclasses { specClass in
-            // This relies on `_QuickSpecInternal`.
-            (specClass as AnyClass).buildExamplesIfNeeded()
-        }
+//        QuickSpec.enumerateSubclasses { specClass in
+//            // This relies on `_QuickSpecInternal`.
+//            (specClass as AnyClass).buildExamplesIfNeeded()
+//        }
     }
 }
 
@@ -63,6 +63,13 @@ extension QuickSpec {
         }
 
         subjects.forEach(block)
+    }
+    
+    @objc internal static func buildAllExamplesIfNeeded() {
+        QuickSpec.enumerateSubclasses { specClass in
+            // This relies on `_QuickSpecInternal`.
+            (specClass as AnyClass).buildExamplesIfNeeded()
+        }
     }
 }
 
