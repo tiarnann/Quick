@@ -24,7 +24,7 @@ static QuickSpec *currentSpec = nil;
  @return An array of invocations that execute the newly defined example methods.
  */
 + (NSArray *)testInvocations {
-    [self buildAllExamplesIfNeeded];
+    [[QuickTestObservation sharedInstance] buildAllExamplesIfNeeded];
     NSArray *examples = [[World sharedWorld] examplesForSpecClass:[self class]];
     NSMutableArray *invocations = [NSMutableArray arrayWithCapacity:[examples count]];
     
